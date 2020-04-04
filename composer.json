@@ -1,0 +1,20 @@
+{
+    "name": "happy-monkey/websocket-server",
+    "description": "",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Happy Monkey",
+            "email": "contact@happy-monkey.fr"
+        }
+    ],
+    "require": {
+        "cboden/ratchet": "^0.4.2",
+        "league/event": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "HappyMonkey\\WebSocket\\": "src/"
+        }
+    }
+}
