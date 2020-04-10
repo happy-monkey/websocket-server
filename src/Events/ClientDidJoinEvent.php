@@ -4,14 +4,14 @@ use HappyMonkey\WebSocket\ServerEvent;
 use HappyMonkey\WebSocket\ServerEventNames;
 
 /**
- * Class ClientWillLeaveEvent
+ * Class ClientDidJoinEvent
  * @package HappyMonkey\WebSocket\Events
  */
-class ClientWillLeaveEvent extends ServerEvent
+class ClientDidJoinEvent extends ServerEvent
 {
     public function __construct($client, $emitter = null)
     {
         parent::__construct($client, $emitter);
-        $this->name = is_null($this->getRoom()) ? ServerEventNames::ClientWillLeaveServer : ServerEventNames::ClientWillLeaveRoom;
+        $this->name = is_null($this->getRoom()) ? ServerEventNames::ClientDidJoinServer : ServerEventNames::ClientDidJoinRoom;
     }
 }

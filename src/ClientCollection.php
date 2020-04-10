@@ -1,7 +1,7 @@
 <?php namespace HappyMonkey\WebSocket;
 
-use HappyMonkey\WebSocket\Events\ClientDidJoinedEvent;
-use HappyMonkey\WebSocket\Events\ClientDidLeftEvent;
+use HappyMonkey\WebSocket\Events\ClientDidJoinEvent;
+use HappyMonkey\WebSocket\Events\ClientDidLeaveEvent;
 use HappyMonkey\WebSocket\Events\ClientWillJoinEvent;
 use HappyMonkey\WebSocket\Events\ClientWillLeaveEvent;
 use League\Event\Emitter;
@@ -44,7 +44,7 @@ trait ClientCollection
         {
             $this->events->emit(new ClientWillJoinEvent($client, $this));
             $this->clients->attach($client->getConn(), $client);
-            $this->events->emit(new ClientDidJoinedEvent($client, $this));
+            $this->events->emit(new ClientDidJoinEvent($client, $this));
         }
     }
 
@@ -65,7 +65,7 @@ trait ClientCollection
         {
             $this->events->emit(new ClientWillLeaveEvent($client, $this));
             $this->clients->detach($client->getConn());
-            $this->events->emit(new ClientDidLeftEvent($client, $this));
+            $this->events->emit(new ClientDidLeaveEvent($client, $this));
         }
     }
 

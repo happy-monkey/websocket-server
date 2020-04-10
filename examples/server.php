@@ -5,14 +5,13 @@ error_reporting(E_ALL);
 require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 use HappyMonkey\WebSocket\Client;
-use HappyMonkey\WebSocket\Events\ClientDidJoinedEvent;
-use HappyMonkey\WebSocket\Events\ClientDidLeftEvent;
 use HappyMonkey\WebSocket\Message;
 use HappyMonkey\WebSocket\Room;
 use HappyMonkey\WebSocket\Server;
 use HappyMonkey\WebSocket\ServerCore;
 use HappyMonkey\WebSocket\ServerEvent;
 use HappyMonkey\WebSocket\ServerEventListener;
+use HappyMonkey\WebSocket\ServerEventNames;
 
 class GameServer extends ServerEventListener
 {
@@ -63,20 +62,16 @@ class GameServer extends ServerEventListener
     {
         switch ( $event->getName() )
         {
-            case ClientDidJoinedEvent::NAME : {
-                if( $room ) {
-                    $room->send(new Message('client_join_game', $client));
-                    if( $room->getClientsCount()==2 )
-                    {
-                        $room->send(new Message('success', '2 clients in room !'));
-                    }
+            case ServerEventNames::ClientDidJoinRoom : {
+                $room->send(new Message('client_join_game', $client));
+                if( $room->getClientsCount()==2 )
+                {
+                    $room->send(new Message('success', '2 clients in room !'));
                 }
                 break;
             }
-            case ClientDidLeftEvent::NAME : {
-                if( $room ) {
-                    $room->send(new Message('client_leave_game', $client));
-                }
+            case ServerEventNames::ClientDidLeaveRoom : {
+                $room->send(new Message('client_leave_game', $client));
                 break;
             }
         }
