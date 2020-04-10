@@ -40,6 +40,7 @@ trait ServerCore
     public function setEventListener($eventListener)
     {
         $this->eventListener = $eventListener instanceof ServerEventListener ? $eventListener : new ServerEventListener();
+        $this->events->addListener('*', $this->eventListener);
     }
 
     /**
