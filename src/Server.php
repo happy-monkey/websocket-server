@@ -76,9 +76,11 @@ class Server implements MessageComponentInterface
     {
         $this->interface->preventMysqlGoneAway();
 
-        $client = $this->interface->getClientFromConn($conn);
-        $this->interface->detachClient($client);
-        $this->interface->log("Client disconnected. UID : {$client->getUid()}");
+        if( $client = $this->interface->getClientFromConn($conn) )
+        {
+            $this->interface->detachClient($client);
+            $this->interface->log("Client disconnected. UID : {$client->getUid()}");
+        }
     }
 
     /**
