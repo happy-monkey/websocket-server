@@ -110,7 +110,8 @@ class Server implements MessageComponentInterface
             $method = 'on' . ucfirst($message->getAction());
             if( method_exists($this->interface, $method) )
             {
-                @call_user_func_array([$this->interface, $method], [$client, $message->getData()]);
+                $room = $this->interface->findRoom($message->getRoom());
+                @call_user_func_array([$this->interface, $method], [$client, $message->getData(), $room]);
             }
             else
             {

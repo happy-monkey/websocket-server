@@ -16,6 +16,11 @@ class Message implements JsonSerializable
     protected $data;
 
     /**
+     * @var string|null $room
+     */
+    protected $room;
+
+    /**
      * @param $json
      * @return Message
      * @throws MalformedJsonException
@@ -27,7 +32,12 @@ class Message implements JsonSerializable
         {
             if( property_exists($json, 'action') )
             {
-                return new Message($json->action, property_exists($json, 'data') ? $json->data : null);
+                $message = new Message($json->action, property_exists($json, 'data') ? $json->data : null);
+                if( property_exists($json, 'room') )
+                {
+                    $message->setRoom($json->room);
+                }
+                return $message;
             }
             else
             {
@@ -44,6 +54,7 @@ class Message implements JsonSerializable
     {
         $this->action = $action;
         $this->data = $data;
+        $this->room = null;
     }
 
     /**
@@ -63,6 +74,14 @@ class Message implements JsonSerializable
     }
 
     /**
+     * @return string|null
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
      * @param string $action
      */
     public function setAction($action)
@@ -79,13 +98,28 @@ class Message implements JsonSerializable
     }
 
     /**
+     * @param string|null $room
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+    }
+
+    /**
      * @inheritDoc
      */
     public function jsonSerialize()
     {
-        return [
+        $data = [
             'action' => $this->action,
             'data' => $this->data
         ];
+
+        if( is_null($this->getRoom()) )
+        {
+            $data['room'] = $this->room;
+        }
+
+        return $data;
     }
 }

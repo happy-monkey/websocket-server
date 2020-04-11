@@ -77,6 +77,8 @@ trait ServerCore
      */
     public function findRoom( $uid )
     {
+        if( !$uid ) return null;
+
         foreach( $this->rooms as $room )
         {
             if( $room instanceof Room && $room->getUid() == $uid )

@@ -10,7 +10,8 @@
     ],
     "require": {
         "cboden/ratchet": "^0.4.2",
-        "league/event": "^2.2"
+        "league/event": "^2.2",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
