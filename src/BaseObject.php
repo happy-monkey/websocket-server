@@ -33,7 +33,15 @@ class BaseObject implements JsonSerializable
 
     public function __get($name)
     {
-        return property_exists($this->data, $name) ? $this->data->name : null;
+        return property_exists($this->data, $name) ? $this->data->$name : null;
+    }
+
+    /**
+     * @param mixed $uid
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
     }
 
     /**

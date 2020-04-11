@@ -65,6 +65,7 @@ class Server implements MessageComponentInterface
                 $conn->close();
             }
         } catch ( \Exception $exception ) {
+            $this->interface->log('Error before client connexion : '.$exception->getMessage().' | '.$exception->getFile().':'.$exception->getLine());
             $conn->close();
         }
     }
