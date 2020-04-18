@@ -62,13 +62,29 @@ trait ServerCore
     /**
      * @param Room $room
      */
-    public function addRoom( Room &$room )
+    public function attachRoom( Room &$room )
     {
         // Catch room events
         $room->events->addListener('*', $this->eventListener);
 
         // Attach room to current server
         $this->rooms->attach($room);
+    }
+
+    /**
+     * @param Room|string $room
+     */
+    public function detachRoom( $room )
+    {
+        if( is_string($room) )
+        {
+            $room = $this->findRoom($room);
+        }
+
+        if( $room )
+        {
+            $this->rooms->detach($room);
+        }
     }
 
     /**

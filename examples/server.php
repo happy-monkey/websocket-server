@@ -31,7 +31,7 @@ class GameServer extends ServerEventListener
     {
         $room = new Room();
         $this->log("Room {$room->getUid()}");
-        $this->addRoom($room);
+        $this->attachRoom($room);
         $room->attachClient($client);
     }
 

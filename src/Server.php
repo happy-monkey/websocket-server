@@ -25,6 +25,27 @@ class Server implements MessageComponentInterface
     }
 
     /**
+     * @param string $action
+     * @return string|null
+     */
+    protected function findMethod( $action )
+    {
+        $method = 'on' . ucfirst($action);
+        if( method_exists($this->interface, $method) )
+        {
+            return $method;
+        }
+
+        $method = 'on' . preg_replace("#_#i", "", ucwords($action, '_'));
+        if( method_exists($this->interface, $method) )
+        {
+            return $method;
+        }
+
+        return null;
+    }
+
+    /**
      * @param string $port
      * @return IoServer
      */
@@ -107,8 +128,7 @@ class Server implements MessageComponentInterface
             $message = Message::fromJSON($msg);
 
             // Prevent call reserved functions
-            $method = 'on' . ucfirst($message->getAction());
-            if( method_exists($this->interface, $method) )
+            if( $method = $this->findMethod($message->getAction()) )
             {
                 $room = $this->interface->findRoom($message->getRoom());
                 @call_user_func_array([$this->interface, $method], [$client, $message->getData(), $room]);
