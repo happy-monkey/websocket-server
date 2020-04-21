@@ -27,7 +27,7 @@ class Message implements JsonSerializable
      */
     public static function fromJSON( $json )
     {
-        $json = json_decode($json);
+        $json = json_decode($json, false, 512, JSON_INVALID_UTF8_SUBSTITUTE);
         if( $json && json_last_error() === JSON_ERROR_NONE )
         {
             if( property_exists($json, 'action') )

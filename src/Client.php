@@ -42,6 +42,6 @@ class Client extends BaseObject
      */
     public function send( $message )
     {
-        $this->conn->send(is_string($message) ? $message : json_encode($message));
+        $this->conn->send(is_string($message) ? $message : json_encode($message, JSON_UNESCAPED_UNICODE));
     }
 }
