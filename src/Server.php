@@ -131,7 +131,14 @@ class Server implements MessageComponentInterface
             if( $method = $this->findMethod($message->getAction()) )
             {
                 $room = $this->interface->findRoom($message->getRoom());
-                @call_user_func_array([$this->interface, $method], [$client, $message->getData(), $room]);
+                try {
+                    $result = @call_user_func_array([$this->interface, $method], [$client, $message->getData(), $room]);
+                    if( $message->getCallback() )
+                        $client->send(new Message($message->getCallback('_success'), $result, true));
+                } catch ( \Exception $exception ) {
+                    if( $message->getCallback() )
+                        $client->send(new Message($message->getCallback('_error'), ['code' => $exception->getCode(), 'message' => $exception->getMessage()], true));
+                }
             }
             else
             {

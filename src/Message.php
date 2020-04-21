@@ -21,6 +21,11 @@ class Message implements JsonSerializable
     protected $room;
 
     /**
+     * @var string|null $callback
+     */
+    protected $callback;
+
+    /**
      * @param $json
      * @return Message
      * @throws MalformedJsonException
@@ -34,9 +39,9 @@ class Message implements JsonSerializable
             {
                 $message = new Message($json->action, property_exists($json, 'data') ? $json->data : null);
                 if( property_exists($json, 'room') )
-                {
                     $message->setRoom($json->room);
-                }
+                if( property_exists($json, 'callback') )
+                    $message->setCallback($json->callback);
                 return $message;
             }
             else
@@ -50,11 +55,12 @@ class Message implements JsonSerializable
         }
     }
 
-    public function __construct( $action='', $data=null )
+    public function __construct( $action='', $data=null, $callback=null )
     {
         $this->action = $action;
         $this->data = $data;
         $this->room = null;
+        $this->callback = $callback;
     }
 
     /**
@@ -82,6 +88,15 @@ class Message implements JsonSerializable
     }
 
     /**
+     * @param null $type
+     * @return string|null
+     */
+    public function getCallback( $type=null )
+    {
+        return $this->callback . ($type ?: '');
+    }
+
+    /**
      * @param string $action
      */
     public function setAction($action)
@@ -106,6 +121,14 @@ class Message implements JsonSerializable
     }
 
     /**
+     * @param string|null $callback
+     */
+    public function setCallback($callback)
+    {
+        $this->callback = $callback;
+    }
+
+    /**
      * @inheritDoc
      */
     public function jsonSerialize()
@@ -115,10 +138,10 @@ class Message implements JsonSerializable
             'data' => $this->data
         ];
 
-        if( is_null($this->getRoom()) )
-        {
+        if( !is_null($this->getRoom()) )
             $data['room'] = $this->room;
-        }
+        if( !is_null($this->getCallback()) )
+            $data['callback'] = $this->callback;
 
         return $data;
     }

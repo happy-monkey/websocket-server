@@ -47,15 +47,22 @@ class GameServer extends ServerEventListener
         }
     }
 
+    public function onTest(Client &$client, $data)
+    {
+        $client->send(new Message('action', 'Hello world 🖐'));
+//        throw new Exception('Throw exception');
+        return 'Hello world 🖐';
+    }
+
     public function canClientJoin(Client &$client, $path, $query)
     {
-        // TODO: Implement whenClientJoin() method.
+        echo 'Connection required on path '.$path.' with query : ';
+        print_r($query);
         return true;
     }
 
     public function catchClientError(Client &$client, Exception $exception)
     {
-        // TODO: Implement whenClientError() method.
     }
 
     public function handleServerEvent(ServerEvent $event, $client, $room)
