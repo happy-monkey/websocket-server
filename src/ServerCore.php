@@ -22,7 +22,7 @@ trait ServerCore
 
     public static function create()
     {
-        return new self();
+        return new static();
     }
 
     protected final function __construct()
