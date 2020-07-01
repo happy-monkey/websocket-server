@@ -11,4 +11,11 @@ class Room extends BaseObject
         parent::__construct($uid);
         $this->initCollection();
     }
+
+    public function jsonSerialize()
+    {
+        $properties = parent::jsonSerialize();
+        $properties['clients'] = $this->clients;
+        return $properties;
+    }
 }
