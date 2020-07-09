@@ -16,9 +16,9 @@ class Room extends BaseObject
     {
         $properties = parent::jsonSerialize();
         $properties['clients'] = [];
-        foreach( $this->clients as $client )
+        foreach( $this->clients as $conn )
         {
-            $properties['clients'][] = $client;
+            $properties['clients'][] = $this->clients[$conn];
         }
         return $properties;
     }
