@@ -74,6 +74,8 @@ trait ClientCollection
      */
     public function send( $message )
     {
+        $message = is_string($message) ? $message : json_encode($message, JSON_UNESCAPED_UNICODE);
+
         foreach( $this->clients as $conn )
         {
             $client = $this->clients[$conn];
