@@ -26,6 +26,11 @@ trait ClientCollection
         $this->events = new Emitter();
     }
 
+    public function getClients()
+    {
+        return $this->clients;
+    }
+
     /**
      * @param ConnectionInterface $conn
      * @return Client|object|null
