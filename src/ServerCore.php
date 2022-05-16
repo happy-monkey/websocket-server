@@ -108,9 +108,9 @@ trait ServerCore
 
     /**
      * @param $message
-     * @param null $type
+     * @param int $type
      */
-    public function log( $message, $type=null )
+    public function log( $message, $type = 0 )
     {
         error_log($message, $type);
     }
