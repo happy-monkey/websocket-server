@@ -12,7 +12,7 @@ class Room extends BaseObject
         $this->initCollection();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $properties = parent::jsonSerialize();
         $properties['clients'] = [];

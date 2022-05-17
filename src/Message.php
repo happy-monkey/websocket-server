@@ -131,7 +131,7 @@ class Message implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $data = [
             'action' => $this->action,
