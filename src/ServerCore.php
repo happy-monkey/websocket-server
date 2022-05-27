@@ -20,7 +20,7 @@ trait ServerCore
      */
     protected ServerEventListener $eventListener;
 
-    public static function create(): static
+    public static function create()
     {
         return new static();
     }
