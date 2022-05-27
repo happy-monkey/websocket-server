@@ -13,14 +13,14 @@ trait ServerCore
     /**
      * @var SplObjectStorage $rooms
      */
-    protected $rooms;
+    protected SplObjectStorage $rooms;
 
     /**
      * @var ServerEventListener
      */
-    protected $eventListener;
+    protected ServerEventListener $eventListener;
 
-    public static function create()
+    public static function create(): static
     {
         return new static();
     }
@@ -37,7 +37,7 @@ trait ServerCore
     /**
      * @param mixed $eventListener
      */
-    public function setEventListener($eventListener)
+    public function setEventListener( mixed $eventListener ): void
     {
         $this->eventListener = $eventListener instanceof ServerEventListener ? $eventListener : new ServerEventListener();
         $this->events->addListener('*', $this->eventListener);
@@ -46,7 +46,7 @@ trait ServerCore
     /**
      * @inheritDoc
      */
-    public function detachClient(Client &$client)
+    public function detachClient( Client &$client )
     {
         $this->_detachClient($client);
 
@@ -62,7 +62,7 @@ trait ServerCore
     /**
      * @param Room $room
      */
-    public function attachRoom( Room &$room )
+    public function attachRoom( Room &$room ): void
     {
         // Catch room events
         $room->events->addListener('*', $this->eventListener);
@@ -72,9 +72,9 @@ trait ServerCore
     }
 
     /**
-     * @param Room|string $room
+     * @param string|Room $room
      */
-    public function detachRoom( $room )
+    public function detachRoom( Room|string $room ): void
     {
         if( is_string($room) )
         {
@@ -91,16 +91,14 @@ trait ServerCore
      * @param $uid
      * @return Room|null
      */
-    public function findRoom( $uid )
+    public function findRoom( $uid ): ?Room
     {
         if( !$uid ) return null;
 
         foreach( $this->rooms as $room )
         {
             if( $room instanceof Room && $room->getUid() == $uid )
-            {
                 return $room;
-            }
         }
 
         return null;
@@ -110,7 +108,7 @@ trait ServerCore
      * @param $message
      * @param int $type
      */
-    public function log( $message, $type = 0 )
+    public function log( $message, int $type = 0 ): void
     {
         error_log($message, $type);
     }

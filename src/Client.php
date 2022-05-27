@@ -4,7 +4,7 @@ use Ratchet\ConnectionInterface;
 
 class Client extends BaseObject
 {
-    protected $uid_prefix = 'client_';
+    protected string $uid_prefix = 'client_';
 
     /**
      * @var ServerCore $server
@@ -32,15 +32,15 @@ class Client extends BaseObject
     /**
      * @return ConnectionInterface
      */
-    public function getConn()
+    public function getConn(): ConnectionInterface
     {
         return $this->conn;
     }
 
     /**
-     * @param Message|string $message
+     * @param string|Message $message
      */
-    public function send( $message )
+    public function send( string|Message $message )
     {
         $this->conn->send(is_string($message) ? $message : json_encode($message, JSON_UNESCAPED_UNICODE));
     }

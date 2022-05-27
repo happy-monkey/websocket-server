@@ -28,7 +28,7 @@ class Server implements MessageComponentInterface
      * @param string $action
      * @return string|null
      */
-    protected function findMethod( $action )
+    protected function findMethod( string $action ): ?string
     {
         $method = 'on' . ucfirst($action);
         if( method_exists($this->interface, $method) )
@@ -49,7 +49,7 @@ class Server implements MessageComponentInterface
      * @param string $port
      * @return IoServer
      */
-    public function run( $port='8282' )
+    public function run( string $port = '8282' ): IoServer
     {
         $keepAliveInterval = 10;
 
@@ -145,8 +145,6 @@ class Server implements MessageComponentInterface
                 $this->interface->log(get_class($this->interface) . "::$method not found to handle message ".json_encode($message));
             }
 
-        } catch ( Exception $exception ) {
-
-        }
+        } catch ( Exception $exception ) { }
     }
 }

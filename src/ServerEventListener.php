@@ -10,15 +10,11 @@ class ServerEventListener extends AbstractListener
      * @param Client $client
      * @param Room|null $room
      */
-    public function handleServerEvent(ServerEvent $event, $client, $room )
-    {
-    }
+    public function handleServerEvent( ServerEvent $event, Client $client, ?Room $room ) { }
 
     public final function handle(EventInterface $event)
     {
         if( $event instanceof ServerEvent )
-        {
             $this->handleServerEvent($event, $event->getClient(), $event->getRoom());
-        }
     }
 }

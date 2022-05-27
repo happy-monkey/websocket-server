@@ -65,7 +65,7 @@ class GameServer extends ServerEventListener
     {
     }
 
-    public function handleServerEvent(ServerEvent $event, $client, $room)
+    public function handleServerEvent(ServerEvent $event, Client $client, ?Room $room)
     {
         switch ( $event->getName() )
         {

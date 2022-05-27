@@ -8,17 +8,17 @@ use League\Event\AbstractEvent;
  */
 class ServerEvent extends AbstractEvent
 {
-    protected $name = 'default_server_event';
+    protected string $name = 'default_server_event';
 
     /**
      * @var Client|null $client
      */
-    private $client = null;
+    private ?Client $client = null;
 
     /**
      * @var Room|null $room
      */
-    private $room = null;
+    private ?Room $room = null;
 
     /**
      * BaseEvent constructor.
@@ -31,7 +31,7 @@ class ServerEvent extends AbstractEvent
         $this->room = $emitter instanceof Room ? $emitter : null;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -39,7 +39,7 @@ class ServerEvent extends AbstractEvent
     /**
      * @return Client|null
      */
-    public function getClient()
+    public function getClient(): ?Client
     {
         return $this->client;
     }
@@ -47,7 +47,7 @@ class ServerEvent extends AbstractEvent
     /**
      * @return Room|null
      */
-    public function getRoom()
+    public function getRoom(): ?Room
     {
         return $this->room;
     }

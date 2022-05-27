@@ -13,29 +13,29 @@ trait ClientCollection
     /**
      * @var SplObjectStorage $clients
      */
-    protected $clients;
+    protected SplObjectStorage $clients;
 
     /**
      * @var Emitter $events
      */
-    public $events;
+    public Emitter $events;
 
-    public final function initCollection()
+    public final function initCollection(): void
     {
         $this->clients = new SplObjectStorage();
         $this->events = new Emitter();
     }
 
-    public function getClients()
+    public function getClients(): SplObjectStorage
     {
         return $this->clients;
     }
 
     /**
      * @param ConnectionInterface $conn
-     * @return Client|object|null
+     * @return object|null
      */
-    public function getClientFromConn( ConnectionInterface $conn )
+    public function getClientFromConn( ConnectionInterface $conn ): Client|null
     {
         return $this->clients->contains($conn) ? $this->clients[$conn] : null;
     }
@@ -43,7 +43,7 @@ trait ClientCollection
     /**
      * @param Client $client
      */
-    public function attachClient( Client &$client )
+    public function attachClient( Client &$client ): void
     {
         if( !$this->clients->contains($client->getConn()) )
         {
@@ -56,7 +56,7 @@ trait ClientCollection
     /**
      * @return int
      */
-    public function getClientsCount()
+    public function getClientsCount(): int
     {
         return $this->clients->count();
     }
@@ -64,7 +64,7 @@ trait ClientCollection
     /**
      * @param Client $client
      */
-    public function detachClient( Client &$client )
+    public function detachClient( Client &$client ): void
     {
         if( $this->clients->contains($client->getConn()) )
         {
@@ -75,19 +75,18 @@ trait ClientCollection
     }
 
     /**
-     * @param Message|string $message
+     * @param string|Message $message
      */
-    public function send( $message )
+    public function send( string|Message $message ): void
     {
         $message = is_string($message) ? $message : json_encode($message, JSON_UNESCAPED_UNICODE);
 
         foreach( $this->clients as $conn )
         {
             $client = $this->clients[$conn];
+
             if( $client instanceof Client )
-            {
                 $client->send($message);
-            }
         }
     }
 

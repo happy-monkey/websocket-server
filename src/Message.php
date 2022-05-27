@@ -8,22 +8,22 @@ class Message implements JsonSerializable
     /**
      * @var string $action
      */
-    protected $action;
+    protected mixed $action;
 
     /**
      * @var mixed|null $data
      */
-    protected $data;
+    protected mixed $data;
 
     /**
      * @var string|null $room
      */
-    protected $room;
+    protected ?string $room;
 
     /**
-     * @var string|null $callback
+     * @var string $callback
      */
-    protected $callback;
+    protected mixed $callback;
 
     /**
      * @param $json
@@ -66,15 +66,15 @@ class Message implements JsonSerializable
     /**
      * @return string
      */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }
 
     /**
-     * @return mixed|null
+     * @return mixed
      */
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }
@@ -82,7 +82,7 @@ class Message implements JsonSerializable
     /**
      * @return string|null
      */
-    public function getRoom()
+    public function getRoom(): ?string
     {
         return $this->room;
     }
@@ -91,7 +91,7 @@ class Message implements JsonSerializable
      * @param null $type
      * @return string|null
      */
-    public function getCallback( $type=null )
+    public function getCallback( $type=null ): ?string
     {
         return $this->callback . ($type ?: '');
     }
@@ -99,15 +99,15 @@ class Message implements JsonSerializable
     /**
      * @param string $action
      */
-    public function setAction($action)
+    public function setAction( string $action )
     {
         $this->action = $action;
     }
 
     /**
-     * @param mixed|null $data
+     * @param mixed $data
      */
-    public function setData($data)
+    public function setData( mixed $data )
     {
         $this->data = $data;
     }
@@ -115,7 +115,7 @@ class Message implements JsonSerializable
     /**
      * @param string|null $room
      */
-    public function setRoom($room)
+    public function setRoom( ?string $room )
     {
         $this->room = $room;
     }
@@ -123,7 +123,7 @@ class Message implements JsonSerializable
     /**
      * @param string|null $callback
      */
-    public function setCallback($callback)
+    public function setCallback( ?string $callback )
     {
         $this->callback = $callback;
     }
