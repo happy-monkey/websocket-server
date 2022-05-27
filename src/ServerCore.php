@@ -37,7 +37,7 @@ trait ServerCore
     /**
      * @param mixed $eventListener
      */
-    public function setEventListener( mixed $eventListener ): void
+    public function setEventListener( $eventListener ): void
     {
         $this->eventListener = $eventListener instanceof ServerEventListener ? $eventListener : new ServerEventListener();
         $this->events->addListener('*', $this->eventListener);
@@ -74,7 +74,7 @@ trait ServerCore
     /**
      * @param string|Room $room
      */
-    public function detachRoom( Room|string $room ): void
+    public function detachRoom( $room ): void
     {
         if( is_string($room) )
         {

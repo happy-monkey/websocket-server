@@ -13,12 +13,12 @@ class BaseObject implements JsonSerializable
     /**
      * @var mixed $uid
      */
-    protected mixed $uid;
+    protected $uid;
 
     /**
      * @var mixed $data
      */
-    protected mixed $data;
+    protected $data;
 
     public function __construct($uid=null)
     {
@@ -39,7 +39,7 @@ class BaseObject implements JsonSerializable
     /**
      * @param mixed $uid
      */
-    public function setUid( mixed $uid )
+    public function setUid( $uid )
     {
         $this->uid = $uid;
     }
@@ -47,15 +47,15 @@ class BaseObject implements JsonSerializable
     /**
      * @return mixed
      */
-    public function getUid(): mixed
+    public function getUid()
     {
         return $this->uid;
     }
 
     /**
-     * @inheritDoc
+     * @return mixed
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize()
     {
         return [
             'uid' => $this->uid,

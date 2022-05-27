@@ -8,12 +8,12 @@ class Message implements JsonSerializable
     /**
      * @var string $action
      */
-    protected mixed $action;
+    protected $action;
 
     /**
      * @var mixed|null $data
      */
-    protected mixed $data;
+    protected $data;
 
     /**
      * @var string|null $room
@@ -23,7 +23,7 @@ class Message implements JsonSerializable
     /**
      * @var string $callback
      */
-    protected mixed $callback;
+    protected $callback;
 
     /**
      * @param $json
@@ -74,7 +74,7 @@ class Message implements JsonSerializable
     /**
      * @return mixed
      */
-    public function getData(): mixed
+    public function getData()
     {
         return $this->data;
     }
@@ -107,7 +107,7 @@ class Message implements JsonSerializable
     /**
      * @param mixed $data
      */
-    public function setData( mixed $data )
+    public function setData( $data )
     {
         $this->data = $data;
     }
@@ -129,9 +129,9 @@ class Message implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * @return mixed
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         $data = [
             'action' => $this->action,

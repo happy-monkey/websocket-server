@@ -33,9 +33,9 @@ trait ClientCollection
 
     /**
      * @param ConnectionInterface $conn
-     * @return object|null
+     * @return Client|object|null
      */
-    public function getClientFromConn( ConnectionInterface $conn ): Client|null
+    public function getClientFromConn( ConnectionInterface $conn )
     {
         return $this->clients->contains($conn) ? $this->clients[$conn] : null;
     }
@@ -77,7 +77,7 @@ trait ClientCollection
     /**
      * @param string|Message $message
      */
-    public function send( string|Message $message ): void
+    public function send( $message ): void
     {
         $message = is_string($message) ? $message : json_encode($message, JSON_UNESCAPED_UNICODE);
 
