@@ -106,11 +106,11 @@ trait ServerCore
 
     /**
      * @param $message
-     * @param int $type
+     * @param $type
      */
-    public function log( $message, int $type = 0 ): void
+    public function log( $message, $type = null ): void
     {
-        error_log($message, $type);
+        error_log($message);
     }
 
     abstract public function init();
